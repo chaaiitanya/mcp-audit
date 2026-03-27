@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-audit"
+version = "0.1.0"
+description = "Security scanner for MCP (Model Context Protocol) server configurations"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+keywords = ["mcp", "security", "scanner", "ai", "llm", "model-context-protocol"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+]
+dependencies = [
+  "typer[all]>=0.12",
+  "rich>=13",
+  "pydantic>=2.0",
+  "jsonschema>=4.20",
+  "platformdirs>=4.0",
+]
+
+[project.scripts]
+mcp-audit = "mcp_audit.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/YOUR_USERNAME/mcp-audit"
+Issues = "https://github.com/YOUR_USERNAME/mcp-audit/issues"
+
+[tool.uv]
+dev-dependencies = [
+  "pytest>=8.0",
+  "pytest-cov>=5.0",
+  "ruff>=0.5",
+  "mypy>=1.10",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_audit"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+strict = true
+python_version = "3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=mcp_audit --cov-report=term-missing"
