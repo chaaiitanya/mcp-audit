@@ -19,7 +19,12 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Topic :: Security",
+  "Typing :: Typed",
+]
+authors = [
+  { name = "Chaitanya Surabattuni" },
 ]
 dependencies = [
   "typer[all]>=0.12",
@@ -33,8 +38,9 @@ dependencies = [
 mcp-audit = "mcp_audit.cli:app"
 
 [project.urls]
-Homepage = "https://github.com/YOUR_USERNAME/mcp-audit"
-Issues = "https://github.com/YOUR_USERNAME/mcp-audit/issues"
+Homepage = "https://github.com/chaaiitanya/mcp-audit"
+Repository = "https://github.com/chaaiitanya/mcp-audit"
+Issues = "https://github.com/chaaiitanya/mcp-audit/issues"
 
 [tool.uv]
 dev-dependencies = [
