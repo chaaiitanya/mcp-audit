@@ -60,6 +60,30 @@ class TestScanCommand:
         assert result.exit_code == 0
 
 
+    def test_fail_on_below_threshold_exits_zero(self, make_config_path):
+        # MCP010 (LOW) finding but --fail-on CRITICAL → exit 0
+        path = make_config_path({"srv": {"command": "node", "env": {"URL": "${MISSING}"}}})
+        result = runner.invoke(
+            app, ["scan", "--config", str(path), "--fail-on", "CRITICAL"]
+        )
+        assert result.exit_code == 0
+
+    def test_fail_on_at_threshold_exits_one(self, make_config_path):
+        # MCP003 (CRITICAL) finding with --fail-on CRITICAL → exit 1
+        path = make_config_path({"srv": {"command": "node", "autoApprove": "*"}})
+        result = runner.invoke(
+            app, ["scan", "--config", str(path), "--fail-on", "CRITICAL"]
+        )
+        assert result.exit_code == 1
+
+    def test_fail_on_invalid_severity_exits_two(self, make_config_path):
+        path = make_config_path({"srv": {"command": "node"}})
+        result = runner.invoke(
+            app, ["scan", "--config", str(path), "--fail-on", "BOGUS"]
+        )
+        assert result.exit_code == 2
+
+
 class TestListChecks:
     def test_lists_all_checks(self):
         result = runner.invoke(app, ["list-checks"])

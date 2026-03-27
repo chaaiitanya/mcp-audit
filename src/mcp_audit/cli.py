@@ -48,6 +48,11 @@ def scan(
         "--min-severity",
         help="Minimum severity to report: CRITICAL, HIGH, MEDIUM, LOW, INFO",
     ),
+    fail_on: str | None = typer.Option(
+        None,
+        "--fail-on",
+        help="Exit 1 only if findings at or above this severity: CRITICAL, HIGH, MEDIUM, LOW",
+    ),
 ) -> None:
     """Scan MCP server configurations for security issues."""
     try:
@@ -95,7 +100,18 @@ def scan(
             print_findings_table(findings, console)
         print_summary(findings, console)
 
-    if findings:
+    # Determine exit code
+    if fail_on:
+        fail_threshold = _SEVERITY_NAMES.get(fail_on.upper())
+        if fail_threshold is None:
+            err_console.print(
+                f"[red]Invalid severity: {fail_on}. "
+                f"Choose from: {', '.join(_SEVERITY_NAMES)}[/red]"
+            )
+            raise typer.Exit(code=2)
+        if any(f.severity >= fail_threshold for f in findings):
+            raise typer.Exit(code=1)
+    elif findings:
         raise typer.Exit(code=1)
 
 
