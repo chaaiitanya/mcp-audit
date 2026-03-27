@@ -27,7 +27,10 @@ class RugPullCheck(BaseCheck):
     def _load_baseline(self) -> dict[str, dict[str, str]]:
         """Load existing baseline or return empty dict."""
         if self.baseline_path.exists():
-            return json.loads(self.baseline_path.read_text(encoding="utf-8"))
+            data: dict[str, dict[str, str]] = json.loads(
+                self.baseline_path.read_text(encoding="utf-8")
+            )
+            return data
         return {}
 
     def _save_baseline(self, baseline: dict[str, dict[str, str]]) -> None:
