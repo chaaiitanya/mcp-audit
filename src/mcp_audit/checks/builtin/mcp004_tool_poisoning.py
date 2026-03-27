@@ -13,9 +13,7 @@ _HTML_TAGS = re.compile(r"<(IMPORTANT|HIDDEN|INSTRUCTION|s)\b", re.IGNORECASE)
 _EXFIL = re.compile(r"(read|send|access|copy).*(\.ssh|\.aws|\.env|mcp\.json)", re.IGNORECASE)
 _CROSS_TOOL = re.compile(r"when\s+(tool|function)\s+\w+\s+is\s+called", re.IGNORECASE)
 _ZERO_WIDTH = re.compile(r"[\u200b\u200c\u200d\ufeff]")
-_SOCIAL_ENG = re.compile(
-    r"(do not tell the user|required for authentication)", re.IGNORECASE
-)
+_SOCIAL_ENG = re.compile(r"(do not tell the user|required for authentication)", re.IGNORECASE)
 _BASE64_PAYLOAD = re.compile(r"[A-Za-z0-9+/]{40,}={0,2}")
 
 _POISONING_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
@@ -73,9 +71,9 @@ class ToolPoisoningCheck(BaseCheck):
                                 description=f"{pattern_name} detected in server configuration",
                                 server_name=server_name,
                                 remediation=(
-                            "Review server configuration for "
-                            "injected instructions or suspicious content"
-                        ),
+                                    "Review server configuration for "
+                                    "injected instructions or suspicious content"
+                                ),
                                 evidence=f"Match: {match.group()[:50]}",
                             )
                         )

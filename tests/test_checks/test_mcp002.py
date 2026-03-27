@@ -20,7 +20,9 @@ class TestCredentialsInArgs:
         assert findings[0].severity == Severity.CRITICAL
 
     def test_url_with_credentials(self, make_config):
-        config = make_config({"srv": {"command": "node", "args": ["https://user:pass@host.com/db"]}})
+        config = make_config(
+            {"srv": {"command": "node", "args": ["https://user:pass@host.com/db"]}}
+        )
         findings = self.check.run(config)
         assert len(findings) == 1
 

@@ -50,9 +50,9 @@ class CredentialsInArgsCheck(BaseCheck):
                                 description=f"{pattern_name} detected in args[{idx}]",
                                 server_name=server_name,
                                 remediation=(
-                            "Pass credentials via environment "
-                            "variables, not command-line arguments"
-                        ),
+                                    "Pass credentials via environment "
+                                    "variables, not command-line arguments"
+                                ),
                                 evidence=f"args[{idx}] = {arg[:20]}...",
                             )
                         )

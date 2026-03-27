@@ -67,9 +67,9 @@ class PlaintextSecretsCheck(BaseCheck):
                                 description=f"{pattern_name} detected in env var '{key}'",
                                 server_name=server_name,
                                 remediation=(
-                                "Use environment variable references "
-                                "like ${VAR} instead of plaintext secrets"
-                            ),
+                                    "Use environment variable references "
+                                    "like ${VAR} instead of plaintext secrets"
+                                ),
                                 evidence=f"env.{key} = {value[:20]}...",
                             )
                         )
@@ -84,14 +84,13 @@ class PlaintextSecretsCheck(BaseCheck):
                                 severity=self.severity,
                                 title=self.title,
                                 description=(
-                        f"High-entropy value in env var '{key}' "
-                        f"(possible secret)"
-                    ),
+                                    f"High-entropy value in env var '{key}' (possible secret)"
+                                ),
                                 server_name=server_name,
                                 remediation=(
-                                "Use environment variable references "
-                                "like ${VAR} instead of plaintext secrets"
-                            ),
+                                    "Use environment variable references "
+                                    "like ${VAR} instead of plaintext secrets"
+                                ),
                                 evidence=f"env.{key} = {value[:20]}...",
                             )
                         )

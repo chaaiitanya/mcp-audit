@@ -30,9 +30,7 @@ class MissingHTTPSCheck(BaseCheck):
                         check_id=self.check_id,
                         severity=self.severity,
                         title=self.title,
-                        description=(
-                        "Server URL uses HTTP instead of HTTPS"
-                    ),
+                        description=("Server URL uses HTTP instead of HTTPS"),
                         server_name=server_name,
                         remediation="Use HTTPS URLs for all server connections",
                         evidence=f"url: {server.url}",

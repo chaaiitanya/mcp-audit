@@ -9,9 +9,9 @@ class TestBroadFilesystem:
         self.check = BroadFilesystemCheck()
 
     def test_specific_path_ok(self, make_config):
-        config = make_config({
-            "srv": {"command": "npx", "args": ["-y", "fs", "/home/user/project"]}
-        })
+        config = make_config(
+            {"srv": {"command": "npx", "args": ["-y", "fs", "/home/user/project"]}}
+        )
         assert self.check.run(config) == []
 
     def test_root_path_flagged(self, make_config):

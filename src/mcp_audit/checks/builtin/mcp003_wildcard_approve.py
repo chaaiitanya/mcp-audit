@@ -26,9 +26,8 @@ class WildcardAutoApproveCheck(BaseCheck):
                         severity=self.severity,
                         title=self.title,
                         description=(
-                        "Wildcard autoApprove allows all tool "
-                        "calls without user confirmation"
-                    ),
+                            "Wildcard autoApprove allows all tool calls without user confirmation"
+                        ),
                         server_name=server_name,
                         remediation="Explicitly list only the tools you trust in autoApprove",
                         evidence=f"autoApprove = {server.autoApprove!r}",

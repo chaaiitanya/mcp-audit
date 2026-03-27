@@ -40,14 +40,13 @@ class BroadFilesystemCheck(BaseCheck):
                             severity=self.severity,
                             title=self.title,
                             description=(
-                        f"Overly broad filesystem path '{arg}' "
-                        f"grants access to entire directory tree"
-                    ),
+                                f"Overly broad filesystem path '{arg}' "
+                                f"grants access to entire directory tree"
+                            ),
                             server_name=server_name,
                             remediation=(
-                        "Restrict filesystem access to "
-                        "specific project directories"
-                    ),
+                                "Restrict filesystem access to specific project directories"
+                            ),
                             evidence=f"arg: {arg}",
                         )
                     )

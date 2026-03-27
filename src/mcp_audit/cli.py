@@ -38,12 +38,8 @@ _SEVERITY_NAMES = {s.name: s for s in Severity}
 
 @app.command()
 def scan(
-    config: Path | None = typer.Option(
-        None, "--config", "-c", help="Path to MCP config file"
-    ),
-    output: OutputFormat = typer.Option(
-        OutputFormat.table, "--output", "-o", help="Output format"
-    ),
+    config: Path | None = typer.Option(None, "--config", "-c", help="Path to MCP config file"),
+    output: OutputFormat = typer.Option(OutputFormat.table, "--output", "-o", help="Output format"),
     output_file: Path | None = typer.Option(
         None, "--output-file", "-f", help="Write output to file"
     ),

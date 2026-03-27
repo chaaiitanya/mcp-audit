@@ -47,10 +47,12 @@ def make_config_path(tmp_path: Path):
 @pytest.fixture()
 def clean_config(make_config: Any) -> MCPConfig:
     """A minimal clean config with no security issues."""
-    return make_config({
-        "test-server": {
-            "command": "node",
-            "args": ["server.js"],
-            "env": {"PORT": "3000"},
+    return make_config(
+        {
+            "test-server": {
+                "command": "node",
+                "args": ["server.js"],
+                "env": {"PORT": "3000"},
+            }
         }
-    })
+    )

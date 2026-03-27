@@ -77,9 +77,8 @@ class KnownCVEsCheck(BaseCheck):
                             severity=sev,
                             title=self.title,
                             description=(
-                        f"Package '{pkg}' has "
-                        f"{cve['cve_id']}: {cve['description']}"
-                    ),
+                                f"Package '{pkg}' has {cve['cve_id']}: {cve['description']}"
+                            ),
                             server_name=server_name,
                             remediation=f"Update or replace '{pkg}' — see {cve['cve_id']}",
                             evidence=f"package: {pkg}, CVE: {cve['cve_id']}",

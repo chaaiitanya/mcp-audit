@@ -1,6 +1,5 @@
 """Tests for config loader."""
 
-
 import pytest
 
 from mcp_audit.config.loader import ConfigParseError, load_all, load_config

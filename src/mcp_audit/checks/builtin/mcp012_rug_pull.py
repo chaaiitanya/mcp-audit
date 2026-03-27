@@ -36,16 +36,12 @@ class RugPullCheck(BaseCheck):
     def _save_baseline(self, baseline: dict[str, dict[str, str]]) -> None:
         """Write baseline to disk."""
         self.baseline_path.parent.mkdir(parents=True, exist_ok=True)
-        self.baseline_path.write_text(
-            json.dumps(baseline, indent=2), encoding="utf-8"
-        )
+        self.baseline_path.write_text(json.dumps(baseline, indent=2), encoding="utf-8")
 
     @staticmethod
     def _hash_tools(tools: Any) -> str:
         """Compute SHA-256 hash of a tool definition."""
-        return hashlib.sha256(
-            json.dumps(tools, sort_keys=True).encode()
-        ).hexdigest()
+        return hashlib.sha256(json.dumps(tools, sort_keys=True).encode()).hexdigest()
 
     def run(self, config: MCPConfig) -> list[Finding]:
         findings: list[Finding] = []
@@ -67,18 +63,14 @@ class RugPullCheck(BaseCheck):
                                 severity=self.severity,
                                 title=self.title,
                                 description=(
-                        f"Tool definitions for '{server_name}' "
-                        f"changed since last scan"
-                    ),
+                                    f"Tool definitions for '{server_name}' changed since last scan"
+                                ),
                                 server_name=server_name,
-                                remediation=(
-                        "Verify the tool definition "
-                        "changes are intentional"
-                    ),
+                                remediation=("Verify the tool definition changes are intentional"),
                                 evidence=(
-                    f"previous hash: {stored_hash[:16]}..., "
-                    f"current: {current_hash[:16]}..."
-                ),
+                                    f"previous hash: {stored_hash[:16]}..., "
+                                    f"current: {current_hash[:16]}..."
+                                ),
                             )
                         )
 

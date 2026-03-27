@@ -29,9 +29,8 @@ class WorldReadableConfigCheck(BaseCheck):
                     severity=self.severity,
                     title=self.title,
                     description=(
-                    "Config file is world-readable, "
-                    "exposing secrets to all users on system"
-                ),
+                        "Config file is world-readable, exposing secrets to all users on system"
+                    ),
                     server_name="(config file)",
                     remediation="Run: chmod 600 " + str(config.source_path),
                     evidence=f"permissions: {oct(mode)}",

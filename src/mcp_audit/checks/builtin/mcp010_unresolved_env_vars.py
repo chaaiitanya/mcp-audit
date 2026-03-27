@@ -40,15 +40,12 @@ class UnresolvedEnvVarsCheck(BaseCheck):
                                 check_id=self.check_id,
                                 severity=self.severity,
                                 title=self.title,
-                                description=(
-                            f"Unresolved variable "
-                            f"${{{var_name}}} in {source}"
-                        ),
+                                description=(f"Unresolved variable ${{{var_name}}} in {source}"),
                                 server_name=server_name,
                                 remediation=(
-                            f"Define '{var_name}' in the server's "
-                            f"env block or set it in your shell"
-                        ),
+                                    f"Define '{var_name}' in the server's "
+                                    f"env block or set it in your shell"
+                                ),
                                 evidence=f"{source}: {value}",
                             )
                         )

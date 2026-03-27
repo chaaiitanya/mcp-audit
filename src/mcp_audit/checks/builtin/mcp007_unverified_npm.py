@@ -59,9 +59,8 @@ class UnverifiedNpxCheck(BaseCheck):
                             severity=self.severity,
                             title=self.title,
                             description=(
-                        f"Package '{arg}' runs via npx -y "
-                        f"without a pinned version"
-                    ),
+                                f"Package '{arg}' runs via npx -y without a pinned version"
+                            ),
                             server_name=server_name,
                             remediation=f"Pin the version: {arg}@<version> or use a SHA hash",
                             evidence=f"package: {arg}",

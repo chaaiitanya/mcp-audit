@@ -25,9 +25,7 @@ class TestDiscoverConfigs:
         for p in results:
             assert p.exists()
 
-    def test_empty_when_no_files_exist(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ):
+    def test_empty_when_no_files_exist(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         """Returns empty list when no config files exist."""
         monkeypatch.setattr("mcp_audit.config.discovery.Path.home", lambda: tmp_path)
         monkeypatch.setattr("mcp_audit.config.discovery.Path.cwd", lambda: tmp_path)
@@ -39,9 +37,7 @@ class TestDiscoverConfigs:
         assert results == []
 
     @pytest.mark.skipif(sys.platform != "darwin", reason="macOS-only test")
-    def test_claude_desktop_mac_path(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ):
+    def test_claude_desktop_mac_path(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         """Claude Desktop macOS path is discovered when it exists."""
         monkeypatch.setattr("mcp_audit.config.discovery.Path.home", lambda: tmp_path)
         monkeypatch.setattr("mcp_audit.config.discovery.Path.cwd", lambda: tmp_path)
@@ -97,9 +93,7 @@ class TestDiscoverConfigs:
         results = discover_configs()
         assert config in results
 
-    def test_win32_appdata_path(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ):
+    def test_win32_appdata_path(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         """Windows APPDATA path is checked when platform is win32."""
         monkeypatch.setattr("mcp_audit.config.discovery.Path.home", lambda: tmp_path)
         monkeypatch.setattr("mcp_audit.config.discovery.Path.cwd", lambda: tmp_path)
@@ -115,9 +109,7 @@ class TestDiscoverConfigs:
         results = discover_configs()
         assert config in results
 
-    def test_win32_no_appdata(
-        self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-    ):
+    def test_win32_no_appdata(self, tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         """No crash when APPDATA is unset on win32."""
         monkeypatch.setattr("mcp_audit.config.discovery.Path.home", lambda: tmp_path)
         monkeypatch.setattr("mcp_audit.config.discovery.Path.cwd", lambda: tmp_path)

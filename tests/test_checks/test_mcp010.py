@@ -13,9 +13,9 @@ class TestUnresolvedEnvVars:
         assert self.check.run(config) == []
 
     def test_resolved_in_env_ok(self, make_config):
-        config = make_config({
-            "srv": {"command": "node", "env": {"URL": "${HOST}", "HOST": "localhost"}}
-        })
+        config = make_config(
+            {"srv": {"command": "node", "env": {"URL": "${HOST}", "HOST": "localhost"}}}
+        )
         assert self.check.run(config) == []
 
     def test_unresolved_flagged(self, make_config, monkeypatch):

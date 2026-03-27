@@ -1,6 +1,5 @@
 """Tests for MCP012: Rug pull detection."""
 
-
 from mcp_audit.checks.builtin.mcp012_rug_pull import RugPullCheck
 
 
