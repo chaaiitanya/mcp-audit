@@ -1,0 +1,27 @@
+{
+  "mcp-remote": {
+    "cve_id": "CVE-2025-6514",
+    "severity": "CRITICAL",
+    "description": "Command injection vulnerability"
+  },
+  "@modelcontextprotocol/inspector": {
+    "cve_id": "CVE-2025-49596",
+    "severity": "CRITICAL",
+    "description": "RCE via DNS rebinding"
+  },
+  "framelink-figma-mcp": {
+    "cve_id": "CVE-2025-53967",
+    "severity": "HIGH",
+    "description": "Command injection vulnerability"
+  },
+  "mcp-server-git": {
+    "cve_id": "CVE-2025-68143",
+    "severity": "CRITICAL",
+    "description": "RCE chain vulnerability"
+  },
+  "gemini-mcp-tool": {
+    "cve_id": "CVE-2026-0755",
+    "severity": "CRITICAL",
+    "description": "Unsanitized exec vulnerability"
+  }
+}

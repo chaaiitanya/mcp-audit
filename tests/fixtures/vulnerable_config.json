@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "leaky-server": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "http://example.com/api"],
+      "env": {
+        "API_KEY": "sk-abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMN",
+        "DB_URL": "postgres://admin:password123@db.example.com/prod"
+      },
+      "autoApprove": "*"
+    },
+    "broad-fs": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/"],
+      "env": {}
+    },
+    "clean-server": {
+      "command": "node",
+      "args": ["server.js"],
+      "env": {
+        "PORT": "3000"
+      }
+    }
+  }
+}

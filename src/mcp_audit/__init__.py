@@ -1,2 +1,3 @@
-def main() -> None:
-    print("Hello from mcp-audit!")
+"""mcp-audit — Security scanner for MCP server configurations."""
+
+__version__ = "0.1.0"
