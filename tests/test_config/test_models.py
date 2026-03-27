@@ -51,3 +51,9 @@ class TestMCPConfig:
     def test_extra_fields_preserved(self):
         config = MCPConfig.model_validate({"mcpServers": {}, "customField": "value"})
         assert config.model_extra["customField"] == "value"
+
+
+class TestAutoApproveNone:
+    def test_auto_approve_none_normalized(self):
+        server = MCPServerConfig(autoApprove=None)
+        assert server.autoApprove == []

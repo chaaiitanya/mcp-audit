@@ -43,3 +43,7 @@ class TestPlaintextSecrets:
         long_val = "aB3$kL9!mN2@pQ5&rT8*vX1#yZ4%cF7"
         config = make_config({"srv": {"command": "node", "env": {"PUBLIC_CERT": long_val}}})
         assert self.check.run(config) == []
+
+    def test_empty_env_value_no_findings(self, make_config):
+        config = make_config({"srv": {"command": "node", "env": {"KEY": ""}}})
+        assert self.check.run(config) == []

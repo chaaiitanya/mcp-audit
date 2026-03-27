@@ -28,3 +28,7 @@ class TestBroadFilesystem:
     def test_users_path_flagged(self, make_config):
         config = make_config({"srv": {"command": "npx", "args": ["fs-server", "/Users"]}})
         assert len(self.check.run(config)) == 1
+
+    def test_bare_backslash_flagged(self, make_config):
+        config = make_config({"srv": {"command": "npx", "args": ["fs-server", "\\"]}})
+        assert len(self.check.run(config)) == 1

@@ -28,6 +28,21 @@ class TestLoadConfig:
         with pytest.raises(ConfigParseError, match="Expected a JSON object"):
             load_config(p)
 
+    def test_os_error_raises_config_parse_error(self, tmp_path):
+        p = tmp_path / "unreadable.json"
+        p.write_text("{}")
+        p.chmod(0o000)
+        with pytest.raises(ConfigParseError):
+            load_config(p)
+        p.chmod(0o644)  # restore for cleanup
+
+    def test_pydantic_validation_error(self, tmp_path):
+        """JSON that is a valid dict but fails Pydantic validation."""
+        p = tmp_path / "bad_types.json"
+        p.write_text('{"mcpServers": "not_a_dict"}')
+        with pytest.raises(ConfigParseError):
+            load_config(p)
+
 
 class TestLoadAll:
     def test_collects_configs_and_errors(self, make_config_path, tmp_path):

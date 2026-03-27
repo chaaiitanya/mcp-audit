@@ -38,3 +38,12 @@ class TestFullSchemaPoisoning:
             }
         )
         assert self.check.run(config) == []
+
+    def test_deeply_nested_schema_stops_recursion(self, make_config):
+        """Schema nested >20 levels deep should not cause recursion errors."""
+        nested: dict = {"description": "<IMPORTANT>injected"}
+        for _ in range(25):
+            nested = {"inner": nested}
+        config = make_config({"srv": {"command": "node", "tools": nested}})
+        # The deeply buried description should not be found (depth > 20)
+        assert self.check.run(config) == []

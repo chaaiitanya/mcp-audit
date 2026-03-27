@@ -34,3 +34,24 @@ class TestUnverifiedNpx:
     def test_no_dash_y_ignored(self, make_config):
         config = make_config({"srv": {"command": "npx", "args": ["some-package"]}})
         assert self.check.run(config) == []
+
+    def test_invalid_scoped_package_ignored(self, make_config):
+        """@scope without /package should not be treated as a package."""
+        config = make_config({"srv": {"command": "npx", "args": ["-y", "@scope"]}})
+        findings = self.check.run(config)
+        assert len(findings) == 1  # flagged as unpinned
+
+    def test_filesystem_path_not_flagged(self, make_config):
+        """Arguments that look like paths (containing /) should be skipped."""
+        config = make_config(
+            {"srv": {"command": "npx", "args": ["-y", "some-package", "/home/user/dir"]}}
+        )
+        findings = self.check.run(config)
+        assert len(findings) == 1  # only the package, not the path
+
+    def test_npx_cmd_in_args_skipped(self, make_config):
+        """The literal 'npx' in args should not be flagged as a package."""
+        config = make_config({"srv": {"command": "npx", "args": ["-y", "npx", "some-package"]}})
+        findings = self.check.run(config)
+        # npx is skipped, some-package is flagged
+        assert all(f.evidence != "package: npx" for f in findings)

@@ -76,6 +76,44 @@ class TestScanCommand:
         result = runner.invoke(app, ["scan", "--config", str(path), "--fail-on", "BOGUS"])
         assert result.exit_code == 2
 
+    def test_invalid_min_severity_exits_two(self, make_config_path):
+        path = make_config_path({"srv": {"command": "node"}})
+        os.chmod(path, 0o600)
+        result = runner.invoke(app, ["scan", "--config", str(path), "--min-severity", "BOGUS"])
+        assert result.exit_code == 2
+
+    def test_sarif_output_file(self, make_config_path, tmp_path):
+        path = make_config_path({"srv": {"command": "node", "autoApprove": "*"}})
+        out = tmp_path / "report.sarif"
+        result = runner.invoke(
+            app,
+            [
+                "scan",
+                "--config",
+                str(path),
+                "--output",
+                "sarif",
+                "--output-file",
+                str(out),
+            ],
+        )
+        assert result.exit_code == 1
+        assert out.exists()
+        parsed = json.loads(out.read_text())
+        assert parsed["version"] == "2.1.0"
+
+    def test_discovery_no_configs_exits_zero(self):
+        from unittest.mock import patch
+
+        from mcp_audit.scanner import ScanResult
+
+        with patch(
+            "mcp_audit.cli.scan_discovery",
+            return_value=ScanResult(findings=[], config_path=None, configs_scanned=0),
+        ):
+            result = runner.invoke(app, ["scan"])
+        assert result.exit_code == 0
+
 
 class TestListChecks:
     def test_lists_all_checks(self):
