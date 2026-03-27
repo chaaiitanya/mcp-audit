@@ -1,6 +1,9 @@
 """Tests for SARIF output formatter."""
 
 import json
+from pathlib import Path
+
+import jsonschema
 
 from mcp_audit.checks.base import Finding, Severity
 from mcp_audit.output.sarif import build_sarif
@@ -47,3 +50,20 @@ class TestSARIF:
         result = json.loads(build_sarif([f1, f2]))
         rules = result["runs"][0]["tool"]["driver"]["rules"]
         assert len(rules) == 1
+
+    def test_validates_against_sarif_schema(self):
+        """Validate SARIF output against the official SARIF 2.1.0 JSON schema."""
+        schema_path = Path(__file__).parent.parent / "fixtures" / "sarif-2.1.0-schema.json"
+        if not schema_path.exists():
+            import pytest
+
+            pytest.skip("SARIF schema fixture not available")
+
+        schema = json.loads(schema_path.read_text())
+        findings = [
+            self._sample_finding(),
+            Finding("MCP008", Severity.MEDIUM, "Missing HTTPS", "d", "s", "r"),
+            Finding("MCP010", Severity.LOW, "Unresolved env", "d", "s", "r"),
+        ]
+        sarif_doc = json.loads(build_sarif(findings, source_path=Path("/tmp/mcp.json")))
+        jsonschema.validate(instance=sarif_doc, schema=schema)

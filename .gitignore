@@ -39,6 +39,9 @@ coverage.xml
 .mypy_cache/
 .pyre/
 
+# Lock file (library — consumers pin their own deps)
+uv.lock
+
 # IDEs / Claude
 .claude/
 .vscode/

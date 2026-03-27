@@ -105,8 +105,7 @@ def scan(
         fail_threshold = _SEVERITY_NAMES.get(fail_on.upper())
         if fail_threshold is None:
             err_console.print(
-                f"[red]Invalid severity: {fail_on}. "
-                f"Choose from: {', '.join(_SEVERITY_NAMES)}[/red]"
+                f"[red]Invalid severity: {fail_on}. Choose from: {', '.join(_SEVERITY_NAMES)}[/red]"
             )
             raise typer.Exit(code=2)
         if any(f.severity >= fail_threshold for f in findings):
