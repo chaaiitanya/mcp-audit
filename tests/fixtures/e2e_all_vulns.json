@@ -1,0 +1,47 @@
+{
+  "mcpServers": {
+    "secrets-in-env": {
+      "command": "node",
+      "args": ["server.js"],
+      "env": {
+        "GITHUB_TOKEN": "ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghij",
+        "OPENAI_KEY": "sk-ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwx"
+      }
+    },
+    "creds-in-args": {
+      "command": "node",
+      "args": ["--token", "ghp_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghij"]
+    },
+    "wildcard-approve": {
+      "command": "node",
+      "args": ["server.js"],
+      "autoApprove": "*"
+    },
+    "broad-filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/"]
+    },
+    "unverified-npx": {
+      "command": "npx",
+      "args": ["-y", "some-random-mcp-server"]
+    },
+    "missing-https": {
+      "command": "node",
+      "args": ["server.js"],
+      "env": {
+        "API_URL": "http://api.example.com/v1"
+      }
+    },
+    "unresolved-env": {
+      "command": "node",
+      "args": ["server.js"],
+      "env": {
+        "SECRET": "${MISSING_VAR}"
+      }
+    },
+    "known-cve": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://example.com"]
+    }
+  }
+}

@@ -130,9 +130,35 @@ INFO     → white
 ~/.mcp-audit/baselines.json
 Format: { "server_name": { "tool_name": "sha256_hash_of_definition" } }
 
+## File size limits
+- Target: 200-400 lines per file, 800 absolute max
+- Prefer many small files over few large files
+- High cohesion, low coupling — organize by feature/domain
+- One check class per file, one formatter per file
+
+## Git workflow
+- Conventional commit prefixes: feat:, fix:, refactor:, docs:, test:, chore:, ci:
+- Never commit directly to main — use feature branches
+- Pre-commit hooks run ruff, mypy, and pytest automatically
+- PR descriptions must include test plan
+
+## Quality gates
+- Pre-commit: ruff check + format, mypy strict, pytest
+- CI: tests on Ubuntu + macOS, Python 3.10/3.12/3.14
+- Minimum 80% code coverage on new code (project is at 99%)
+- Zero ruff or mypy violations before merge
+
+## Security principles
+- Never hardcode secrets — use ${VAR} env references
+- No network calls in scanner core (fully offline)
+- Validate all external input (config files) via Pydantic
+- Never shell out with unsanitized user input
+
 ## Code style
 - Type hints everywhere, no Any unless truly unavoidable
 - Docstrings on all public classes and methods
 - Tests required for every check (min 3 cases: pass, fail, edge)
 - ruff for linting, mypy strict mode
 - Use platformdirs for all cross-platform path resolution
+- No emojis in code, comments, or docs
+- No console.log/print() — use Rich console only
