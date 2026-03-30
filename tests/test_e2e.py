@@ -6,10 +6,11 @@ import json
 import os
 from pathlib import Path
 
+from typer.testing import CliRunner
+
 from mcp_audit.checks.base import Severity
 from mcp_audit.cli import app
 from mcp_audit.scanner import scan_config
-from typer.testing import CliRunner
 
 runner = CliRunner()
 
